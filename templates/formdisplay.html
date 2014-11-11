@@ -1,0 +1,142 @@
+<html>
+<title>Formshow</title>
+<h1 style="color:blue;background-color:blue;color:white;"><center>User Leave Request</center></h1>
+<body>
+<div>
+ <type id="user"><br>
+ <type id="leave_type"><br>
+ <type id="From_date"><br>
+ <type id="To_date"><br>
+ <type id="Timeoff"><br>
+ <type id="WDay_apply"><br>
+ <type id="Remarks"><br></p>
+<table id="userleave" height="85%" width="100%" border="3" bgcolor="white" class='familyclass'style="border-radius:10px;float:top;text-align:center;margin-top:-161px;background-color:white;border-color:blue">
+    </table>
+    </div><br>
+    
+ <button type="submit" onclick="save()"style="margin-left:520px;border-color:blue">save</button>
+ <ul style="margin-top: -547px;margin-left: 91%;"><a href="/main/">Log out</a></ul></br>
+ <input type="hidden" value="" id="recordLength">
+ <style type="text/css">
+	button{
+		font-size: 15px;
+		font-family: verdana;
+		
+	}
+	select{
+		margin-left:40px;
+	}
+a{
+    color: white;
+    font-family: verdana;
+    font-weight: bold;
+}
+</style><!-- /media/nizam/02E87DF0E87DE1F9/leavemanagement/static/js/jquery-2.1.0.min.js -->
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+
+function subject(){
+	// alert('a')
+	$.ajax({
+      type:'POST',
+      url:'/formdis/',
+      data:{
+      	csrfmiddlewaretoken: '{{csrf_token}}',
+      },
+    success : function(response){
+      var data=response['data'];
+      var str_head = '<th>&nbsp;&nbsp;&nbsp;User</th><th>&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Leave Type </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From Date </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To Date </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Timeoff</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No.Of Days Applying</th><th> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Remarks </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status</th><th>&nbsp;&nbsp;&nbsp;&nbsp;Available_leave</th>'
+      var str ='';
+      document.getElementById('recordLength').value = data.length;
+      
+      for(i=0;i<data.length;i++)
+  		{
+          
+          var available_leave = data[i]['available_leave'];
+      		var user=data[i]['user'];
+      		var leave_type=data[i]['leave_type'];
+      		var From_date=data[i]['From_date'];
+          var To_date=data[i]['To_date'];
+          var Timeoff=data[i]['Timeoff'];
+          var WDay_apply	=data[i]['WDay_apply'];
+          var Remarks=data[i]['Remarks'];
+          var Id=data[i]['id'];
+            
+            str += '<span><tr><td>&nbsp;&nbsp;&nbsp;'+user+'</td><td>&nbsp;&nbsp;&nbsp;'+leave_type+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+From_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;'+To_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;'+Timeoff+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+WDay_apply+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+Remarks+'</td><td>&nbsp;<select id="status'+i+'"><option value="Approve">Approve</option><option value="Pending">Pending</option><option value="Reject">Reject</option></select><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+available_leave+'</td>'+'<input type="hidden" id="id'+i+'" value="'+Id+'">'+'<input type="hidden" id="user'+i+'" value="'+user+'">'+'<input type="hidden" id="leave_type'+i+'" value="'+leave_type+'">'+'<input type="hidden" id="From_date'+i+'" value="'+From_date+'">'+'<input type="hidden" id="To_date'+i+'" value="'+To_date+'">'+'<input type="hidden" id="Timeoff'+i+'" value="'+Timeoff+'">'+'<input type="hidden" id="WDay_apply'+i+'" value="'+WDay_apply+'">'+'<input type="hidden" id="Remarks'+i+'" value="'+Remarks+'">'+'</td></tr></span>';
+            
+        }
+            var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
+            $('.familyclass').append(html)
+            
+      },
+    });
+  }
+  $( document ).ready(function() {
+    console.log( "ready!" );
+    subject();
+});
+function save(){
+	var recCount = document.getElementById('recordLength').value;
+	var leaves = new Array(recCount -1);
+	for(i = 0; i < recCount; i++)
+	{
+    // i = 0;
+		var leave = {
+			LeaveID: document.getElementById('id'+i).value,
+			Status: document.getElementById('status'+i).value,
+			User: document.getElementById('user'+i).value,
+			Leave_type: document.getElementById('leave_type'+i).value,
+			From_date: document.getElementById('From_date'+i).value,
+      To_date :document.getElementById('To_date'+i).value,
+      Timeoff :document.getElementById('Timeoff'+i).value,
+      WDay_apply :document.getElementById('WDay_apply'+i).value,
+      
+      
+      Remarks:document.getElementById('Remarks'+i).value,
+			// LeaveID_id: document.getElementById('id0').value,
+			// Status: document.getElementById('status0').value
+		}
+    $.ajax({
+      type:'POST',
+      url:'/statusform/',
+      data:{
+        leave:leave,
+        csrfmiddlewaretoken: '{{csrf_token}}'
+        },
+      success: function (response) {
+          console.log(response);
+          }
+      });
+
+		leaves[i] = leave,
+		console.log(leave);
+		// alert(leave.LeaveID_id);
+		// alert(leave.Status)
+	// }
+		// $.ajax({
+		// type:'POST',
+		// url:'/statusform/',
+		// data:{
+		// 		leave:leaves,
+		// 		csrfmiddlewaretoken: '{{csrf_token}}'
+  //   		},
+  //   	success: function (response) {
+  //   			console.log(response);
+  //       	}
+  //   	});
+	// var Approving_officer=document.getElementById('Approving_officer').value;
+	// var Approve=document.getElementById('user','leave_type','From_date','To_date','WDay_apply','Approve_officer','Recomnd_officer','cc_to_other','Email_address','Remarks').value;
+	// var status=document.getElementById('status').value;
+	// var all={
+	// 	// Approving_officer:Approving_officer,
+	// 	status:status,
+
+	};
+
+}
+
+
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<html>
+ <title>Approver Login
+ </title>
+ <h1>
+ Approver Login
+ </h1>
+ </head>
+ <body>
+ <form id="Form">
+  <div>
+   <img src="\images\leave.jpg"width="60px"height="60px"><br><br><br>
+   <!-- Company: &nbsp;<input type="text" name="company"size="20px"><br><br> -->
+   User Name:&nbsp;<input type="text" id="username"size="20px"><br><br>
+   Password :&nbsp;&nbsp;&nbsp;<input type="password" id="password"size="20px"><br><br>
+   <p><a href>forget your password ?</a></p><br><br>
+   <input type="button" value="Login" onclick="approverlogin(form)"><br><br>
+  </div>
+  </form>
+
+ </body>
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+
+ function approverlogin(form){
+    $.ajax({
+      type:'POST',
+      url:'/approverlogin/',
+      data:{
+        // username : username,
+      // company =form.company.value,
+        username:form.username.value,
+        password:form.password.value,
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+    },
+    success:function(response){
+      console.log(response)
+      if (response="success"){window.location.href='/formdisplay/'}
+      else {alert("password does not match");}
+    }
+  })
+    document.getElementById("Form").reset();
+ }
+
+ </script>
+
+<style>
+ h1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 470px;
+  margin-left: 450px;
+  font-family: "verdana";
+  background-color:whitesmoke;
+  color: #32CD32;
+  font-size: 25px;
+  border-color: #32CD32;
+  text-align: center;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 25px;
+}
+div{
+  /*float:left;*/
+  border: 2px solid #a1a1a1;
+  padding: 15px; 
+  background: white;
+  width: 325px;
+  border-radius: 25px;
+  border-color: #32CD32;
+  height: 340px;
+  /*width: 250px;
+  padding: 15px;
+  border: 1px solid navy;
+  margin: 90px;
+  */margin-left: 450px;
+  /*color: black;
+  */font-family: "verdana";
+  font-size: 18px;
+}
+body{
+  text-align: center;
+  background-color: white;
+}
+input[type=text] {
+   margin-top: 0px;
+   margin-bottom: 0px;
+    /*width: 150px;*/
+    /*display: block;*/
+    /*margin-bottom: 5px;*/
+    background-color:DCDCDC;
+    margin-left: 8px;
+  }
+input[type=button] {
+  margin-top: -20px;
+  border-radius:10px;
+  border-color:#32CD32;
+  font-size: 20px;
+
+}
+p{
+  margin-left: -130px;
+  font-size: 15px;
+  font-family: verdana;
+}
+input[type=password]{
+  background-color:DCDCDC;
+}
+</style>
+</html>

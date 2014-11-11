@@ -1,0 +1,87 @@
+<html>
+<title>Status</title>
+<h1 style="color:blue;background-color:blue;color:white;"><center>User Leave Request</center></h1>
+<body>
+<div>
+ <type id="user"><br>
+ <type id="leave_type"><br>
+ <type id="From_date"><br>
+ <type id="To_date"><br>
+ <type id="Timeoff"><br>
+ <type id="WDay_apply"><br>
+ <type id"Recomnd_officer"> <br>
+ <type id="Approve_officer"><br>
+ <type id="cc_to_other"><br>
+ <type id="Email_address"><br>
+ <type id="Remarks"><br></p>
+ <type id="Status"><br>
+<div><br><!-- <a href="#" onclick="subject()"style="margin-bottom:1000px;"><center> Details of Apply Leave ! ! !</center></a> --></br>
+<table id="userleave" height="560" width="1320" border="3" bgcolor="white" class='familyclass'style="border-radius:10px;float:top;text-align:center;margin-top:-260px;background-color:white;border-color:blue">
+    </table>
+    </div><br>
+    <ul style="margin-top:-50%;margin-left:91%;color:white"><a href="/main/">Log Out</a></li></br>
+ <!-- <button type="submit" onclick="save()"style="margin-left:520px;border-color:blue">save</button> -->
+ <input type="hidden" value="" id="recordLength">
+ <style type="text/css">
+  button{
+    font-size: 15px;
+    font-family: verdana;
+    
+  }
+  select{
+    margin-left:40px;
+  }
+  a{
+    color: white;
+    font-family: verdana;
+    font-weight: bold;
+  }
+</style>
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+
+function subject(){
+  // alert('a')
+  $.ajax({
+      type:'POST',
+      url:'/state/',
+      data:{
+        csrfmiddlewaretoken: '{{csrf_token}}',
+      },
+    success : function(response){
+      var data=response['data'];
+      var str_head = '<th>&nbsp;&nbsp;&nbsp;user</th><th>&nbsp;&nbsp;&nbsp;leave_type </th><th>&nbsp;&nbsp;&nbsp;From_date </th><th>&nbsp;&nbsp;&nbsp;To_date </th><th>Status</th>'
+      var str ='';
+      document.getElementById('recordLength').value = data.length;
+      for(i=0;i<data.length;i++)
+      {
+          var user=data[i]['user'];
+          var leave_type=data[i]['leave_type'];
+          var From_date=data[i]['From_date'];
+          var To_date=data[i]['To_date'];
+          var Timeoff=data[i]['Timeoff'];
+          var WDay_apply  =data[i]['WDay_apply'];
+          var Recomnd_officer=data[i]['Recomnd_officer'];
+          var Approve_officer=data[i]['Approve_officer'];
+          var cc_to_other=data[i]['cc_to_other'];
+          var Email_address=data[i]['Email_address'];
+          var Remarks=data[i]['Remarks'];
+          var Id=data[i]['id'];
+          var Status=data[i]['Status'];
+            
+            str += '<tr><td>'+user+'</td><td>'+leave_type+'</td><td>'+From_date+'</td><td>'+To_date+'</td><td>'+Status+'</td></tr>';
+            
+        }
+            var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
+            $('.familyclass').append(html)
+            
+      },
+    });
+  }
+  $( document ).ready(function() {
+    console.log( "ready!" );
+    subject();
+});
+  </script>
+</body>
+</html>

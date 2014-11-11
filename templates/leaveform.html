@@ -1,0 +1,251 @@
+<html>
+<title>LEAVE FORM</title>
+<h1>LEAVE FORM</h1>
+
+<body>
+<ul style="margin-top:-63px;"><a href="/main/">Home Page</a></ul></br>
+{% csrf_token %}
+<!-- <span><img src="C:\Users\Admin\Desktop\form.png"style="width:80;height:80;float:right;margin-right:520px;margin-top:100px"></span> --><form1 id="Form1"> 
+ <div class="head">
+  </div><div class="border"><form rules="row">
+  <center style="background-color:blue;font-size:25px;font-family:verdana;">LEAVE FORM</center><br>
+  <span>Leave Type:<select id="leavetype" style="margin-left:110px;width:134px;">
+   <option value="Annual Leave">Annual Leave</option>
+     <option value="Sick Leave">Sick Leave</option></select><br><br>
+    From Date:<input type="date" id="From_date" onchange="time_diff()"><br><br>
+    To Date: <input type="date" id="To_date"style="margin-left:133px;" onchange="time_diff()"><br><br>
+    Time Off:<select id="Timeoff" style="margin-left:128px;width:133px;"><option value="Full Day Off">Full Day Off</option>
+     <option value="Partial Day Off">Partial Day Off</option></select><br><br>
+   Working Days Applied:<input type="text" id="WDapply"size="10px"style="margin-left:16px;"><br><br>
+   Remarks:<input type="text"id="remark"size="50px"style="margin-left:130px;"><br><br>
+   <button type="submit" onclick="Save()">Save</button>
+   <button  id="reset"value="reset"onClick="reset()">Reset</button>
+   
+</span>
+
+</div>
+</body>
+<style type="text/css">
+div.border{
+	font-size: 20px;
+	color:white;
+	width:800px;
+	height: 395px;
+	border:3px solid blue;
+	margin-left: 200px;
+	border-radius: 10px;
+	background-color:gray;
+  margin-top: -1%;
+}
+h1{
+	color:white;
+	background-color: blue;
+	text-align: center;
+	font-size: 40px;
+	border-radius: 15px;
+	height:50px;
+	font-family: verdana;
+  margin-top: -8px;
+}
+select{
+	width:80px;
+	font-size: 15px;
+	font-family: verdana;
+	border-color:blue;
+	border-width: 2px;
+}
+input[type="text"]{
+	size:15px;
+	font-family: verdana;
+	border-color: blue;
+}
+button{
+	background-color: gray;
+	color:white;
+	border-width: 3px;
+	font-size: 23px;
+	border-color: 		blue;
+	border-radius: 	20px;
+	font-family: 	verdana;
+	margin-left: 	200px;
+}
+input[type="date"]{
+  margin-left:  117px;
+  border-color:blue;
+  border-width:2px;
+  font-family:verdana;
+}
+</style>
+</html>
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+
+function time_diff(){
+    var From_date=document.getElementById('From_date').value;
+    var To_date=document.getElementById('To_date').value; 
+    var date1 = new Date(From_date);
+    var date2 = new Date(To_date);
+    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    if (!isNaN(diffDays)) {
+    console.log(diffDays);
+    document.getElementById('WDapply').value=diffDays;
+
+    };
+};
+function Save(){
+    // var user=form.username.value,
+    var Timeoff=document.getElementById('Timeoff').value;
+	  var leavetype = document.getElementById('leavetype').value;
+    var remark = document.getElementById('remark').value;
+    var From_date=document.getElementById('From_date').value;
+    var To_date=document.getElementById('To_date').value; 
+    var WDapply = document.getElementById('WDapply').value;
+    alert(WDapply);
+    // alert(diffDays)​;
+    // //var doi = document.getElementById("doi").value;
+    //var dor = document.getElementById("dor").value;
+    // var year = document.getElementById('selectyear').value;
+    // var month = document.getElementById('selectmonth').value;
+    // var date = document.getElementById('selectdate').value;
+    // var year1 = document.getElementById('selectyear1').value;
+    // var month1 = document.getElementById('selectmonth1').value;
+    // var date1 = document.getElementById('selectdate1').value;
+
+    var all={
+      Timeoff:Timeoff,
+      From_date:From_date,
+      To_date:To_date,
+      leavetype:leavetype,
+      WDapply:WDapply,
+      
+      
+      
+      remark:remark,
+        // From_date:From_date,
+        // To_date:To_date,
+        // //doi=doi,
+        //dor=dor,
+        // year:year,
+        // month:month,
+        // date:date,
+        // year1:year1,
+        // month1:month1,
+        // date1:date1
+    };
+      
+    // console.log(all)
+    $.ajax({
+      type:'POST',
+      url:'/leaveform/',
+      data:{
+      	   all:all,
+    	   csrfmiddlewaretoken: '{{csrf_token}}'
+    	},
+    success: function (response) {
+        console.log(response);
+        if (response="saved")
+          {
+            alert('ok');
+          }
+
+            }
+            });
+
+}
+
+
+
+// function year()  
+//         {    
+//         var years = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]
+//         select = document.getElementById('selectyear');
+//         select.innerHTML = '';
+//         for (var i = 0; i<years.length; i++){
+//             var opt = document.createElement('option');
+//             opt.value = years[i];
+//             opt.innerHTML = years[i];
+//             select.appendChild(opt);
+//             }
+//     }
+
+//     function month()  
+//         {    
+//         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+//         select = document.getElementById('selectmonth');
+//         select.innerHTML = '';
+//         for (var i = 0; i<months.length; i++){
+//             var opt = document.createElement('option');
+//             opt.value = months[i];
+//             opt.innerHTML = months[i];
+//             select.appendChild(opt);
+//               }
+//     }
+
+//     function date()  
+//         {    
+//         var days =  [1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+//         select = document.getElementById('selectdate');
+//         select.innerHTML = '';
+//         for (var i = 0; i<days.length; i++){
+//             var opt = document.createElement('option');
+//             opt.value = days[i];
+//             opt.innerHTML = days[i];
+//             select.appendChild(opt);
+//               }
+//     }
+
+//      $( document ).ready(function() {
+//     year();
+//     month();
+//     date();
+// });
+// function year1()  
+//         {    
+//         var years = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]
+//         select = document.getElementById('selectyear1');
+//         select.innerHTML = '';
+//         for (var i = 0; i<years.length; i++){
+//             var opt = document.createElement('option');
+//             opt.value = years[i];
+//             opt.innerHTML = years[i];
+//             select.appendChild(opt);
+//             }
+//     }
+
+//     function month1()  
+//         {    
+//         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+//         select = document.getElementById('selectmonth1');
+//         select.innerHTML = '';
+//         for (var i = 0; i<months.length; i++){
+//             var opt = document.createElement('option');
+//             opt.value = months[i];
+//             opt.innerHTML = months[i];
+//             select.appendChild(opt);
+//               }
+//     }
+
+//     function date1()  
+//         {    
+//         var days =  [1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+//         select = document.getElementById('selectdate1');
+//         select.innerHTML = '';
+//         for (var i = 0; i<days.length; i++){
+//             var opt = document.createElement('option');
+//             opt.value = days[i];
+//             opt.innerHTML = days[i];
+//             select.appendChild(opt);
+//               }
+//     }
+//     $( document ).ready(function() {
+//     year();
+//     month();
+//     date();
+//     year1();
+//     month1();
+//     date1();
+// });
+
+
+</script>

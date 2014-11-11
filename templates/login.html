@@ -1,0 +1,127 @@
+<html>
+ <title>Login Page
+ </title>
+ <h1>User Login
+ </h1>
+ </head>
+ <body>
+ <form id="Form"><!-- {{csrf_token}} -->
+  <div>
+   <img src="\images\leave.jpg" width="60px"height="60px"><br><br><br>
+   <!-- Company: &nbsp;<input type="text" name="company"size="20px"><br><br> -->
+   User Name:&nbsp;<input type="text" name="username"size="20px"><br><br>
+   Password :&nbsp;&nbsp;&nbsp;<input type="password" id="password"size="20px"><br><br>
+   <ul style="margin-left: -221px;
+margin-top: 79px;"><a href>forget your password ?</a></ul><br><br>
+   <input type="button" value="Login" onclick="login(form)"><br><br>
+   <ul style="margin-top: -91px;margin-left: 209px;"><a href="/signup/">signup</a></ul></br>
+  </div>
+  </form>
+
+ </body>
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+ function login(form){
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+    $.ajax({
+      type:'POST',
+      url:'/login_check/',
+      data:{
+      // company =form.company.value,
+        username:form.username.value,
+        password:form.password.value,
+        csrfmiddlewaretoken: csrftoken,
+    },
+    success:function(response){
+      console.log(response);
+      if (response="success"){window.location.href='/home/'}
+      else {
+        alert('you successfully registered');
+      }
+    }
+  });
+    document.getElementById("Form").reset();
+ }
+
+ </script>
+
+<style>
+ h1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 460px;
+  margin-left: 450px;
+  font-family: "verdana";
+  background-color:whitesmoke;
+  color: #32CD32;
+  font-size: 25px;
+  border-color: #32CD32;
+  text-align: center;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 25px;
+}
+div{
+  /*float:left;*/
+  border: 2px solid #a1a1a1;
+  padding: 15px; 
+  background: white;
+  width: 325px;
+  border-radius: 25px;
+  border-color: #32CD32;
+  height: 340px;
+  /*width: 250px;
+  padding: 15px;
+  border: 1px solid navy;
+  margin: 90px;
+  */margin-left: 450px;
+  /*color: black;
+  */font-family: "verdana";
+  font-size: 18px;
+}
+body{
+  text-align: center;
+  background-color: white;
+}
+input[type=text] {
+   margin-top: 0px;
+   margin-bottom: 0px;
+    /*width: 150px;*/
+    /*display: block;*/
+    /*margin-bottom: 5px;*/
+    background-color:DCDCDC;
+    margin-left: 8px;
+  }
+input[type=button] {
+  margin-top: -132px;
+  border-radius:10px;
+  border-color:#32CD32;
+  font-size: 20px;
+
+}
+p{
+  margin-left: -130px;
+  font-size: 15px;
+  font-family: verdana;
+}
+input[type=password]{
+  background-color:DCDCDC;
+}
+</style>
+</html>

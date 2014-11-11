@@ -1,0 +1,66 @@
+<!-- <!DOCTYPE html> -->
+<html>
+<head>
+	<title>Create Account</title>
+	<h1 style="margin-left:34%">Create Your Account</h1>
+</head>
+<body>
+<form style="border:1px solid blue;margin-left:28%;margin-right:33%;border-radius:10px;border-width:2px;background-color:gray;color:white;"><br>
+Username:<input type="text" id="username" style = "margin-left:3%"><br><br>
+Password:&nbsp;<input type="password" id="password" style = "margin-left:3%"><br><br>
+Gender:&nbsp;&nbsp;&nbsp;&nbsp;<select id="gender" style = "margin-left:3%;width: 175px;
+height: 24px;">
+   <option value="male">Male</option>
+     <option value="female">Female</option></select><br><br>
+DOB:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="dob" style = "margin-left:3%;width:176px"><br><br>
+Mail Id:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mail" style = "margin-left:3%;width:176px"><br><br>
+Mob:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mob" style = "margin-left:3%;width:176px"><br><br>
+<button type="submit" onclick="save()"size="50px"style = "margin-top: 3px;
+margin-left: 39%;
+width: 101px;
+height: 31px;
+border-radius: 18px;
+color: blue;
+border-color: white;
+font-size: 17px;">Save</button><br><br>
+</form>
+</body>
+<style type="text/css">
+</style>
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+function save(){
+	var username=document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    var gender = document.getElementById('gender').value;
+    var dob = document.getElementById('dob').value;
+    var mail=document.getElementById('mail').value;
+    var mob=document.getElementById('mob').value;  
+    var all={
+      username:username,
+      password:password,
+      gender:gender,
+      dob:dob,
+      mail:mail,
+      mob:mob,
+       
+    };    
+
+    $.ajax({
+      type:'POST',
+      url:'/createaccount/',
+      data:{
+      	   all:all,
+    	   csrfmiddlewaretoken: '{{csrf_token}}'
+    	},
+    success: function (response) {
+        console.log(response);
+        if (response="success"){
+        	window.location.href='/signup/';
+        	alert('you successfully registered');}
+            }
+            });
+}
+
+</script>
+</html>
