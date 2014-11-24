@@ -1,21 +1,41 @@
 <html>
 <title>Formshow</title>
-<h1 style="color:blue;background-color:blue;color:white;"><center>User Leave Request</center></h1>
+<h1 style="color:blue;background-color:blue;color:white;text-align:center;">
+    <a style="font-size:15px;left:10px;" id="signup_popup">Add User <div id="popup1"></div>
+                 <div id="popup_modal1">
+                 <div id="closing">X</div>
+                    <form style="border:1px solid blue;margin-left:28%;margin-right:33%;border-radius:10px;border-width:2px;background-color:gray;color:white;"><br>
+                    Username:<input type="text" id="username" style = "margin-left:3%"><br><br>
+                    Password:&nbsp;<input type="password" id="password" style = "margin-left:3%"><br><br>
+                    Gender:&nbsp;&nbsp;&nbsp;&nbsp;<select id="gender" style = "margin-left:3%;width: 175px;
+                    height: 24px;">
+                       <option value="male">Male</option>
+                         <option value="female">Female</option></select><br><br>
+                    DOB:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="dob" style = "margin-left:3%;width:176px"><br><br>
+                    Mail Id:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mail" style = "margin-left:3%;width:176px"><br><br>
+                    Mob:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mob" style = "margin-left:3%;width:176px"><br><br>
+                    <button type="submit" onclick="adduser()"size="50px"style = "margin-top: 3px;
+                    margin-left: 39%;
+                    width: 101px;
+                    height: 31px;
+                    border-radius: 18px;
+                    color: blue;
+                    border-color: white;
+                    font-size: 17px;">Save</button><br><br>
+                    </form>
+                </div>
+
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User Leave Request&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="font-size:15px;left:10px;" href="/logout/">Logout</a></h1>
 <body>
+
 <div>
- <type id="user"><br>
- <type id="leave_type"><br>
- <type id="From_date"><br>
- <type id="To_date"><br>
- <type id="Timeoff"><br>
- <type id="WDay_apply"><br>
- <type id="Remarks"><br></p>
-<table id="userleave" height="85%" width="100%" border="3" bgcolor="white" class='familyclass'style="border-radius:10px;float:top;text-align:center;margin-top:-161px;background-color:white;border-color:blue">
+ 
+<table id="userleave" height="85%" width="100%" border="3" bgcolor="white" class='familyclass'style="border-radius:10px;float:top;text-align:center;margin-top:-20px;background-color:white;border-color:blue">
     </table>
     </div><br>
     
  <button type="submit" onclick="save()"style="margin-left:520px;border-color:blue">save</button>
- <ul style="margin-top: -547px;margin-left: 91%;"><a href="/main/">Log out</a></ul></br>
+ 
  <input type="hidden" value="" id="recordLength">
  <style type="text/css">
 	button{
@@ -31,10 +51,28 @@ a{
     font-family: verdana;
     font-weight: bold;
 }
-</style><!-- /media/nizam/02E87DF0E87DE1F9/leavemanagement/static/js/jquery-2.1.0.min.js -->
+</style>
+<link rel="stylesheet" href="{{STATIC_URL}}css/styles.css">
 <script src="{{ STATIC_URL }}js/min.js"></script>
-<script type="text/javascript">
+<script src="{{ STATIC_URL }}js/jquery.js"></script>
+<script>
+  $(document).ready(function(){
+  $("#signup_popup").click(function(){
+      $("#popup1").fadeIn("slow");
+      $("#popup_modal1").fadeIn("slow");
+  });
+    $("#closing").click(function(){
+      $("#popup1").fadeOut("fast");
+      $("#popup_modal1").fadeOut("fast");      
+  });
 
+  });
+
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script src="{{STATIC_URL}}js/jquery.min.js"></script>
+<script src="{{STATIC_URL}}js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
 function subject(){
 	// alert('a')
 	$.ajax({
@@ -45,7 +83,7 @@ function subject(){
       },
     success : function(response){
       var data=response['data'];
-      var str_head = '<th>&nbsp;&nbsp;&nbsp;User</th><th>&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Leave Type </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From Date </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To Date </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Timeoff</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No.Of Days Applying</th><th> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Remarks </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status</th><th>&nbsp;&nbsp;&nbsp;&nbsp;Available_leave</th>'
+      var str_head = '<th>&nbsp;&nbsp;&nbsp;User</th><th>&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Leave Type </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From Date </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To Date </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Timeoff</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No.Of Days Applying</th><th> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Remarks </th><th>&nbsp;&nbsp;&nbsp;&nbsp;Available_leave</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status</th><th>&nbsp;&nbsp;&nbsp;&nbsp;Choose</th>'
       var str ='';
       document.getElementById('recordLength').value = data.length;
       
@@ -62,7 +100,7 @@ function subject(){
           var Remarks=data[i]['Remarks'];
           var Id=data[i]['id'];
             
-            str += '<span><tr><td>&nbsp;&nbsp;&nbsp;'+user+'</td><td>&nbsp;&nbsp;&nbsp;'+leave_type+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+From_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;'+To_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;'+Timeoff+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+WDay_apply+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+Remarks+'</td><td>&nbsp;<select id="status'+i+'"><option value="Approve">Approve</option><option value="Pending">Pending</option><option value="Reject">Reject</option></select><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+available_leave+'</td>'+'<input type="hidden" id="id'+i+'" value="'+Id+'">'+'<input type="hidden" id="user'+i+'" value="'+user+'">'+'<input type="hidden" id="leave_type'+i+'" value="'+leave_type+'">'+'<input type="hidden" id="From_date'+i+'" value="'+From_date+'">'+'<input type="hidden" id="To_date'+i+'" value="'+To_date+'">'+'<input type="hidden" id="Timeoff'+i+'" value="'+Timeoff+'">'+'<input type="hidden" id="WDay_apply'+i+'" value="'+WDay_apply+'">'+'<input type="hidden" id="Remarks'+i+'" value="'+Remarks+'">'+'</td></tr></span>';
+            str += '<span><tr><td>&nbsp;&nbsp;&nbsp;'+user+'</td><td>&nbsp;&nbsp;&nbsp;'+leave_type+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+From_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;'+To_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;'+Timeoff+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+WDay_apply+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+Remarks+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+available_leave+'</td><td>&nbsp;<select id="status'+i+'"><option value="Approve">Approve</option><option value="Pending">Pending</option><option value="Reject">Reject</option></select></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="Choose" value="savedata"></td>'+'<input type="hidden" id="id'+i+'" value="'+Id+'">'+'<input type="hidden" id="user'+i+'" value="'+user+'">'+'<input type="hidden" id="leave_type'+i+'" value="'+leave_type+'">'+'<input type="hidden" id="From_date'+i+'" value="'+From_date+'">'+'<input type="hidden" id="To_date'+i+'" value="'+To_date+'">'+'<input type="hidden" id="Timeoff'+i+'" value="'+Timeoff+'">'+'<input type="hidden" id="WDay_apply'+i+'" value="'+WDay_apply+'">'+'<input type="hidden" id="Remarks'+i+'" value="'+Remarks+'">'+'<input type="hidden" id="available_leave'+i+'" value="'+available_leave+'"></tr></span>';
             
         }
             var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
@@ -76,6 +114,12 @@ function subject(){
     subject();
 });
 function save(){
+  var checkedValue = $('#Choose:checked').is(':checked');
+
+  // var checkedValue = $('#Choose').is(':checked');
+  // var checkedValue = document.querySelector('#Choose:checked').value;
+  console.log('save')
+  console.log(checkedValue)
 	var recCount = document.getElementById('recordLength').value;
 	var leaves = new Array(recCount -1);
 	for(i = 0; i < recCount; i++)
@@ -84,6 +128,7 @@ function save(){
 		var leave = {
 			LeaveID: document.getElementById('id'+i).value,
 			Status: document.getElementById('status'+i).value,
+      Choose: checkedValue,
 			User: document.getElementById('user'+i).value,
 			Leave_type: document.getElementById('leave_type'+i).value,
 			From_date: document.getElementById('From_date'+i).value,
@@ -104,36 +149,62 @@ function save(){
         csrfmiddlewaretoken: '{{csrf_token}}'
         },
       success: function (response) {
-          console.log(response);
+        console.log(response)
+          if(response=='saved') {
+            alert('Status Saved...')
+          }
+          else if (response=='nothing') {
+            alert('Nothing to Save!')
+          }
+          else if (response=='error') {
+          alert('There is no Available Leave')
+        }  
+          
           }
       });
 
 		leaves[i] = leave,
+    console.log('gg')
 		console.log(leave);
-		// alert(leave.LeaveID_id);
-		// alert(leave.Status)
-	// }
-		// $.ajax({
-		// type:'POST',
-		// url:'/statusform/',
-		// data:{
-		// 		leave:leaves,
-		// 		csrfmiddlewaretoken: '{{csrf_token}}'
-  //   		},
-  //   	success: function (response) {
-  //   			console.log(response);
-  //       	}
-  //   	});
-	// var Approving_officer=document.getElementById('Approving_officer').value;
-	// var Approve=document.getElementById('user','leave_type','From_date','To_date','WDay_apply','Approve_officer','Recomnd_officer','cc_to_other','Email_address','Remarks').value;
-	// var status=document.getElementById('status').value;
-	// var all={
-	// 	// Approving_officer:Approving_officer,
-	// 	status:status,
 
 	};
 
 }
+
+function adduser(){
+  var username=document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    var gender = document.getElementById('gender').value;
+    var dob = document.getElementById('dob').value;
+    var mail=document.getElementById('mail').value;
+    var mob=document.getElementById('mob').value;  
+    var all={
+      username:username,
+      password:password,
+      gender:gender,
+      dob:dob,
+      mail:mail,
+      mob:mob,
+       
+    };    
+
+    $.ajax({
+      type:'POST',
+      url:'/createaccount/',
+      data:{
+           all:all,
+         csrfmiddlewaretoken: '{{csrf_token}}'
+      },
+    success: function (response) {
+        console.log(response);
+        if (response="success"){
+          window.location.href='/signup/';
+          alert('you successfully registered');}
+            }
+            });
+}
+
+</script>
 
 
     

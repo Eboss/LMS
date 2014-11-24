@@ -1,0 +1,93 @@
+.border{
+	font-size: 20px;
+	color:white;
+	width:700px;
+	height: 455px;
+	border:3px solid blue;
+	margin-left: 25%;
+	border-radius: 10px;
+	background-color:gray;
+  margin-top: 10%;
+}
+
+#leavetype,#Timeoff {
+	width:80px;
+	font-size: 15px;
+	font-family: verdana;
+	border-color:blue;
+	border-width: 2px;
+}
+#WDapply{
+	size:15px;
+	font-family: verdana;
+	border-color: blue;
+}
+#save,#reset{
+	background-color:blue;
+	color:white;
+	border-width: 2px;
+	font-size: 23px;
+	border-color:seashell;
+	border-radius: 	10px;
+	font-family: 	verdana;
+	margin-left: 	20px;
+  width:113px;
+}
+#From_date,#To_date {
+  margin-left:  120px;
+  border-color:blue;
+  border-width:2px;
+  font-family:cursive;
+  width:240px;
+  height: 25px;
+}
+#remark {
+  size:15px;
+  font-family: verdana;
+  border-color: blue;
+  border-width: 2px;
+}
+
+.profile_wrapper_inner_branch
+{
+  
+  padding-top: 18px;
+  position: relative;  
+  top: 103px;  
+}
+
+
+
+.profile_wrapper_inner_tab2
+{
+  margin-left: 22px;
+  margin-right: 22px;
+  padding-top: 18px;
+  position: relative;
+  /*width: 700px;*/
+  margin: 0 auto;
+  /*border: 1px solid rgb(204, 204, 204);*/
+  /*height: 535px;*/
+  top: 103px;
+  /*border-radius: 10px;*/
+  /*background-color: #CDCDCD;*/
+  /*box-shadow: 0px 2px 7px rgb(54, 54, 54);*/
+}
+
+.profile_tab_head
+{
+  width:100%;
+  border-bottom:1px solid #ccc;
+  height: 40px;
+  text-align: center;
+}
+
+.profile_tab_body
+{
+  height: 440px; 
+  width: 85%;
+  background-color: white;
+  margin: 0 auto;
+  border-radius: 6px;
+  border: 1px solid #2B8170;
+}

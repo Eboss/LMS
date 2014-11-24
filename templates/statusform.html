@@ -1,27 +1,27 @@
 <html>
 <title>Status</title>
-<h1 style="color:blue;background-color:blue;color:white;"><center>User Leave Request</center></h1>
+
 <body>
-<div>
- <type id="user"><br>
- <type id="leave_type"><br>
- <type id="From_date"><br>
+<h1 style="background-color:blue;margin-bottom:20%;color:white;text-align:center">User Leave Request</h1>
+ <!-- <type id="user"><br>
+ <type id="leave_type"><br> -->
+ <!-- <type id="From_date"><br>
  <type id="To_date"><br>
  <type id="Timeoff"><br>
  <type id="WDay_apply"><br>
  <type id"Recomnd_officer"> <br>
- <type id="Approve_officer"><br>
- <type id="cc_to_other"><br>
- <type id="Email_address"><br>
- <type id="Remarks"><br></p>
- <type id="Status"><br>
-<div><br><!-- <a href="#" onclick="subject()"style="margin-bottom:1000px;"><center> Details of Apply Leave ! ! !</center></a> --></br>
-<table id="userleave" height="560" width="1320" border="3" bgcolor="white" class='familyclass'style="border-radius:10px;float:top;text-align:center;margin-top:-260px;background-color:white;border-color:blue">
+ <type id="Approve_officer"><br> -->
+ <!-- <type id="cc_to_other"><br> -->
+ <!-- <type id="Email_address"><br> -->
+<!--  <type id="Remarks"><br></p>
+ <type id="Status"><br> -->
+<!-- <div><br><a href="#" onclick="subject()"style="margin-bottom:1000px;"><center> Details of Apply Leave ! ! !</center></a></br> -->
+<table id="recordLength" border="3" bgcolor="white" class='familyclass'style="border-radius:10px;float:top;text-align:center;margin-top:-260px;background-color:white;border-color:blue">
     </table>
-    </div><br>
-    <ul style="margin-top:-50%;margin-left:91%;color:white"><a href="/main/">Log Out</a></li></br>
+    
+    
  <!-- <button type="submit" onclick="save()"style="margin-left:520px;border-color:blue">save</button> -->
- <input type="hidden" value="" id="recordLength">
+ <!-- <span id="recordLength"></span> -->
  <style type="text/css">
   button{
     font-size: 15px;
@@ -72,7 +72,7 @@ function subject(){
             str += '<tr><td>'+user+'</td><td>'+leave_type+'</td><td>'+From_date+'</td><td>'+To_date+'</td><td>'+Status+'</td></tr>';
             
         }
-            var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
+            var html = '<table><tr>'+str_head +'</tr>'+str+'</table>';
             $('.familyclass').append(html)
             
       },

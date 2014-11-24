@@ -1,0 +1,111 @@
+table.calendar {
+  font-family: verdana, Arial, sans-serif;
+  font-size: 0.8em;
+  /*border-collapse: collapse;*/
+  background-color: #B0C4DE;
+  border: solid #6495ED 3px;
+  background-color: black;
+  /*border-radius: 50px;*/
+  width: 200px;
+  height:60px;
+  text-align: center;
+  /*margin-left: 70px;
+  margin-top: 20px;*/
+  /*prevent user from selecting text in Mozilla & Safari - check calendar constructor for IE code)*/
+  -moz-user-select: none;
+    /*-khtml-user-select: none;*/
+}
+table.calendar input, table.calendar select {
+  border-color:#6495ED;
+  border-radius: 5px;
+  border-width: 2px;
+  font-size: 15px;
+}
+table.calendar td {
+  border: 1px #6495ED;
+  font-size: 45px;
+  text-align: center;
+}
+div.mainheading {
+  margin: 3px;
+}
+table.caldayheading {
+  
+  border-collapse: collapse;
+  cursor: pointer;
+  empty-cells: show;
+  margin: 0 0px 0 0px;
+}
+table.caldayheading td {
+  font-family: verdana;
+  font-size: 28px;
+  border: solid #CCCCCC 1px;
+  text-align: left;
+  color: #0054E3;
+  font-weight: solid;
+  width: 20px; /*should match calendar cell's width*/
+}
+/*table.caldayheading td.wkhead { */
+  /*border:1px solid black;*/
+  /*border-right: double #CCCCCC 3px;*/
+/*}*/
+table.calcells {
+  border-collapse: collapse;
+  cursor: pointer;
+  margin: 0 2px 2 2px;
+}
+table.calcells td {
+  border: solid #CCCCCC 1px;
+  vertical-align: top;
+  text-align: left;
+  font-weight: solid;
+  /*width: 20px;
+  height: 20px; /*IE doesn't like ems*/*/
+}
+table.calcells td div {
+  padding: 1px;
+  margin: 0;
+}
+table.calcells td.wkhead {
+  font-size: 0px;
+  background-color: white;
+  text-align: center;
+  border-right: double #CCCCCC 3px;
+  color: #0054E3;
+}
+table.calcells td.wkday {
+  font-size: 46px;
+  background-color: #DDDDDD;
+}
+table.calcells td.wkend {
+  background-color: #DDDDDD;
+}
+table.calcells td.curdate {
+
+}
+table.calcells td.cell_selected {
+  background-color: #F0F8FF;
+  color: black;
+  font-size: 20px;
+  font-family:georgia;
+}
+table.calcells td.notmnth {
+  background-color: #FFFFFF;
+  color: #CCCCCC;
+}
+table.calcells td.notallowed {
+  background-color: white;
+  color: #EEEEEE;
+  font-style: italic;
+}
+table.calcells td.hover {
+  background-color: #999999;
+}
+/*select{
+  border-width: 5px;
+  color:blue;
+  border-color:green;
+  border-radius: 5px;
+  font-size: 15px;
+  float:right;
+ }
