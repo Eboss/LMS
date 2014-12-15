@@ -66,7 +66,7 @@
 }
 
 
-#closing {
+#close {
     cursor: pointer;
     width: 30px;
     line-height: 30px;
@@ -86,7 +86,7 @@
     border: solid 1px #fff;
 }
 
-#closing:hover {    
+#close:hover {    
     background: red;
 }
 

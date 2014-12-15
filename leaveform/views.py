@@ -168,20 +168,42 @@ def statusform(request):
             new_user_obj= new_user.objects.get(username=data['User'])
             mail = new_user_obj.mail            
             da= user_leav_obj.WDay_apply
-            print da
             al=new_user_obj.Available_leave
-            print al
-            if data['Status'] == 'Approve' :
-                remaining = al - da
-                status = 'Approve'
-                print remaining
-                print status    
-                if remaining < 0:
-                    dump = "error"
-                    return HttpResponse(content=json.dumps(dump),content_type='Application/json')
-                else:
-                    new_user_obj.Available_leave = remaining
-                    new_user_obj.save()
+            print 'entered'
+            ls = Leave_status.objects.filter(user=data['User'])
+            if ls:
+                ls = ls[0]
+                ls.Status = data['Status']
+                ls.save()     
+            else:
+                if data['Status'] == 'Approve' :
+                    remaining = al - da
+                    status = 'Approve'
+                    print remaining
+                    print status    
+                    if remaining < 0:
+                        dump = "error"
+                        return HttpResponse(content=json.dumps(dump),content_type='Application/json')
+                    else:
+                        new_user_obj.Available_leave = remaining
+                        new_user_obj.save()
+                        print 'inside statusform'        
+                        Leave_status.objects.create(
+                                                user=data['User'],
+                                                LeaveID=data['LeaveID'],
+                                                From_date=data['From_date'],
+                                                To_date=data['To_date'],
+                                                Status = status,
+                                                leave_type = data['Leave_type'],
+                                            )
+                        
+                        dump ='saved'
+                        send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
+                        return HttpResponse(content=json.dumps(dump),content_type='Application/json')
+
+                elif data['Status'] == 'Pending' :
+                    status = 'Pending'                
+                    print status                
                     print 'inside statusform'        
                     Leave_status.objects.create(
                                             user=data['User'],
@@ -196,40 +218,23 @@ def statusform(request):
                     send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
                     return HttpResponse(content=json.dumps(dump),content_type='Application/json')
 
-            elif data['Status'] == 'Pending' :
-                status = 'Pending'                
-                print status                
-                print 'inside statusform'        
-                Leave_status.objects.create(
-                                        user=data['User'],
-                                        LeaveID=data['LeaveID'],
-                                        From_date=data['From_date'],
-                                        To_date=data['To_date'],
-                                        Status = status,
-                                        leave_type = data['Leave_type'],
-                                    )
-                
-                dump ='saved'
-                send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
-                return HttpResponse(content=json.dumps(dump),content_type='Application/json')
 
-
-            elif data['Status'] == 'Reject' :
-                status = 'Reject'                
-                print status    
-                print 'inside statusform'        
-                Leave_status.objects.create(
-                                        user=data['User'],
-                                        LeaveID=data['LeaveID'],
-                                        From_date=data['From_date'],
-                                        To_date=data['To_date'],
-                                        Status = status,
-                                        leave_type = data['Leave_type'],
-                                    )
-                
-                dump ='saved'
-                send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
-                return HttpResponse(content=json.dumps(dump),content_type='Application/json')
+                elif data['Status'] == 'Reject' :
+                    status = 'Reject'                
+                    print status    
+                    print 'inside statusform'        
+                    Leave_status.objects.create(
+                                            user=data['User'],
+                                            LeaveID=data['LeaveID'],
+                                            From_date=data['From_date'],
+                                            To_date=data['To_date'],
+                                            Status = status,
+                                            leave_type = data['Leave_type'],
+                                        )
+                    
+                    dump ='saved'
+                    send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
+                    return HttpResponse(content=json.dumps(dump),content_type='Application/json')
         elif data['Choose'] == 'false':
             print data['Choose']
             dump = "nothing"
@@ -254,7 +259,7 @@ def state(request):
         data.append({'user':i.user,'leave_type':i.leave_type,'From_date':i.From_date,'To_date':i.To_date,'Status':i.Status})
         print data
     return HttpResponse(content=json.dumps({'data': data}),content_type='Application/json')
-    return render(request,'statusform.html')
+    # return render(request,'home.html')
 
 
 
