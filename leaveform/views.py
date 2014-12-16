@@ -30,22 +30,25 @@ def createaccount(request):
     if request.method == 'POST':
         post, data, req_field = request.POST, {}, ['username' ,'password','gender','dob','mail','mob']
         for i in req_field:
-            data[i] = post['all[%s]'%i]
-        auth = User.objects.create_user(data['username'],'',data['password'])
-        available_leave=12
-        new_user.objects.create(
-                                    Available_leave=available_leave,
-                                    username = data['username'],
-                                    password=data['password'],
-                                    gender=data['gender'],
-                                    dob=data['dob'],
-                                    mail = data['mail'],
-                                    mob = data['mob'], 
-                                    auth=auth,
-                                    )
-        dump="saved"
+            data[i] = post['all[%s]'%i]        
+        if new_user.objects.filter(username = data['username']):
+            dump = "registered"
+        else:
+            auth = User.objects.create_user(data['username'],'',data['password'])
+            available_leave=12
+            new_user.objects.create(
+                                        Available_leave=available_leave,
+                                        username = data['username'],
+                                        password=data['password'],
+                                        gender=data['gender'],
+                                        dob=data['dob'],
+                                        mail = data['mail'],
+                                        mob = data['mob'], 
+                                        auth=auth,
+                                        )
+            dump="saved"
         return HttpResponse(content=json.dumps(dump),content_type='Application/json')
-        return render(request,'signup.html')
+    return render(request,'signup.html')
 
 
 

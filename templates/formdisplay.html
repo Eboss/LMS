@@ -198,11 +198,15 @@ function adduser(){
       },
     success: function (response) {
         console.log(response);
-        if (response="success"){
-          window.location.href='/signup/';
-          alert('you successfully registered');}
-            }
-            });
+        if (response=="saved"){
+          // window.location.href='/signup/';
+          alert('you successfully registered');
+        }
+        else if(response=="registered"){
+          alert('username already exist!');
+        }
+      }
+    });
 }
 
 </script>
