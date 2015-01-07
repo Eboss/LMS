@@ -9,9 +9,9 @@
   <div id="content">
    <img src="{{ STATIC_URL }}images/leave.jpg"width="60px"height="60px"><br><br><br>
    <!-- Company: &nbsp;<input type="text" name="company"size="20px"><br><br> -->
-   User Name:&nbsp;<input type="text" id="username"size="20px"><br><br>
-   Password :&nbsp;&nbsp;&nbsp;<input type="password" id="password"size="20px"><br><br>
-   <p><a href="/forgotpassword/">forgot password ?</a></p><br><br>
+   USERNAME :&nbsp;&nbsp;&nbsp;<input type="text" id="username"size="20px"><br><br>
+   PASSWORD :&nbsp;&nbsp;&nbsp;<input type="password" id="password"size="20px"><br><br>
+   <p><a href="/forgotpassword/">Forgot password</a></p><br><br>
    <input type="button" id="loginbutton" value="Login" onclick="approverlogin(form)"><br><br>
   </div>
   </form>
@@ -50,6 +50,11 @@
     document.getElementById("Form").reset();
  }
 
+ $("#password").keyup(function(event){
+    if(event.keyCode == 13){
+        $("#loginbutton").click();
+    }
+});
  </script>
 
 </html>

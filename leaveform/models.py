@@ -33,7 +33,7 @@ class Leave_status(models.Model):
 
 
 class new_user(models.Model):
-     Available_leave=models.IntegerField(max_length=20)
+     available_leave=models.CharField(max_length=200)
      auth = models.OneToOneField(User)
      username=models.CharField(max_length=500)
      password = models.CharField(max_length=500)

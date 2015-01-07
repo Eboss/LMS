@@ -16,6 +16,7 @@
                     DOB:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="dob" style = "margin-left:3%;width:176px"><br><br>
                     Mail Id:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mail" style = "margin-left:3%;width:176px"><br><br>
                     Mob:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mob" style = "margin-left:3%;width:176px"><br><br>
+                    Allocate leave:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="available_leave" style="margin-left:3%;width:176px">
                     <button type="submit" onclick="adduser()"size="50px"style = "margin-top: 3px;
                     margin-left: 39%;
                     width: 101px;
@@ -84,7 +85,7 @@ function subject(){
       },
     success : function(response){
       var data=response['data'];
-      var str_head = '<th>&nbsp;&nbsp;&nbsp;User</th><th>&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Leave Type </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From Date </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To Date </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Timeoff</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No.Of Days Applying</th><th> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Remarks </th><th>&nbsp;&nbsp;&nbsp;&nbsp;Available_leave</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status</th><th>&nbsp;&nbsp;&nbsp;&nbsp;Choose</th>'
+      var str_head = '<th>&nbsp;&nbsp;&nbsp;User</th><th>&nbsp;&nbsp;&nbsp&nbsp;&nbsp;Leave Type </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From Date </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To Date </th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Timeoff</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No.Of Days Applying</th><th> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Remarks </th><th>&nbsp;&nbsp;&nbsp;&nbsp;available_leave</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status</th><th>&nbsp;&nbsp;&nbsp;&nbsp;Choose</th>'
       var str ='';
       document.getElementById('recordLength').value = data.length;
       
@@ -173,12 +174,14 @@ function save(){
 }
 
 function adduser(){
-  var username=document.getElementById('username').value;
+
+    var username=document.getElementById('username').value;
     var password = document.getElementById('password').value;
     var gender = document.getElementById('gender').value;
     var dob = document.getElementById('dob').value;
     var mail=document.getElementById('mail').value;
-    var mob=document.getElementById('mob').value;  
+    var mob=document.getElementById('mob').value;
+    var available_leave = document.getElementById('available_leave').value;  
     var all={
       username:username,
       password:password,
@@ -186,8 +189,10 @@ function adduser(){
       dob:dob,
       mail:mail,
       mob:mob,
+      available_leave:available_leave,
        
     };    
+
 
     $.ajax({
       type:'POST',
@@ -197,6 +202,7 @@ function adduser(){
          csrfmiddlewaretoken: '{{csrf_token}}'
       },
     success: function (response) {
+        alert('a')
         console.log(response);
         if (response=="saved"){
           // window.location.href='/signup/';

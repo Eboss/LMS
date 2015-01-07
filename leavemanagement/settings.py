@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'leaveform',
+    'south'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -72,8 +73,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'leavemanagement',
-        'USER': '',
-        'PASSWORD':'',
+        'USER': 'postgres',
+        'PASSWORD':'equityboss',
+        'HOST' : 'localhost',
     }
 }
 

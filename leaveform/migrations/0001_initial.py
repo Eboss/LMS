@@ -11,6 +11,7 @@ class Migration(SchemaMigration):
         # Adding model 'user_leave'
         db.create_table(u'leaveform_user_leave', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('leave_type', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('From_date', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('To_date', self.gf('django.db.models.fields.CharField')(max_length=50)),
@@ -23,7 +24,6 @@ class Migration(SchemaMigration):
         # Adding model 'Leave_status'
         db.create_table(u'leaveform_leave_status', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('username', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['leaveform.user_leave'])),
             ('user', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('LeaveID', self.gf('django.db.models.fields.IntegerField')()),
             ('From_date', self.gf('django.db.models.fields.CharField')(max_length=50)),
@@ -36,13 +36,14 @@ class Migration(SchemaMigration):
         # Adding model 'new_user'
         db.create_table(u'leaveform_new_user', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('available_leave', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('auth', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
             ('username', self.gf('django.db.models.fields.CharField')(max_length=500)),
             ('password', self.gf('django.db.models.fields.CharField')(max_length=500)),
             ('gender', self.gf('django.db.models.fields.CharField')(max_length=500)),
             ('dob', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('mail', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('mob', self.gf('django.db.models.fields.IntegerField')(max_length=2000)),
+            ('mob', self.gf('django.db.models.fields.CharField')(max_length=2000)),
         ))
         db.send_create_signal(u'leaveform', ['new_user'])
 
@@ -103,17 +104,17 @@ class Migration(SchemaMigration):
             'To_date': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'leave_type': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'user': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'username': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['leaveform.user_leave']"})
+            'user': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
         u'leaveform.new_user': {
             'Meta': {'object_name': 'new_user'},
             'auth': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'}),
+            'available_leave': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'dob': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'mail': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
-            'mob': ('django.db.models.fields.IntegerField', [], {'max_length': '2000'}),
+            'mob': ('django.db.models.fields.CharField', [], {'max_length': '2000'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             'username': ('django.db.models.fields.CharField', [], {'max_length': '500'})
         },
@@ -125,7 +126,8 @@ class Migration(SchemaMigration):
             'To_date': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'WDay_apply': ('django.db.models.fields.IntegerField', [], {'max_length': '4'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'leave_type': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+            'leave_type': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'user': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         }
     }
 
