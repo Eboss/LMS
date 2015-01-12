@@ -8,56 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Leave_status'
-        db.create_table(u'leaveform_leave_status', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('LeaveID', self.gf('django.db.models.fields.IntegerField')()),
-            ('From_date', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('To_date', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('Status', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('leave_type', self.gf('django.db.models.fields.CharField')(max_length=50)),
-        ))
-        db.send_create_signal(u'leaveform', ['Leave_status'])
-
-        # Adding model 'user_leave'
-        db.create_table(u'leaveform_user_leave', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('leave_type', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('From_date', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('To_date', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('Timeoff', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('WDay_apply', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('Remarks', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('status', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['leaveform.Leave_status'])),
-        ))
-        db.send_create_signal(u'leaveform', ['user_leave'])
-
-        # Adding model 'new_user'
-        db.create_table(u'leaveform_new_user', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('available_leave', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('auth', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('username', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('password', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('dob', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('mail', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('mob', self.gf('django.db.models.fields.CharField')(max_length=2000)),
-        ))
-        db.send_create_signal(u'leaveform', ['new_user'])
+        # Deleting field 'user_leave.status'
+        db.delete_column(u'leaveform_user_leave', 'status_id')
 
 
     def backwards(self, orm):
-        # Deleting model 'Leave_status'
-        db.delete_table(u'leaveform_leave_status')
-
-        # Deleting model 'user_leave'
-        db.delete_table(u'leaveform_user_leave')
-
-        # Deleting model 'new_user'
-        db.delete_table(u'leaveform_new_user')
+        # Adding field 'user_leave.status'
+        db.add_column(u'leaveform_user_leave', 'status',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=datetime.datetime(2015, 1, 12, 0, 0), to=orm['leaveform.Leave_status']),
+                      keep_default=False)
 
 
     models = {
@@ -128,7 +87,6 @@ class Migration(SchemaMigration):
             'WDay_apply': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'leave_type': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'status': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['leaveform.Leave_status']"}),
             'user': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         }
     }

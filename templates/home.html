@@ -36,7 +36,7 @@ function Save(){
     var From_date=document.getElementById('From_date').value;
     var To_date=document.getElementById('To_date').value; 
     var WDapply = document.getElementById('WDapply').value;
-    alert(WDapply);
+    // alert(WDapply);
  
     var all={
       Timeoff:Timeoff,
@@ -55,9 +55,7 @@ function Save(){
       },
     success: function (response) {
         console.log(response);
-        if (response="saved")
-          {
-            alert('ok');
+        if (response="saved"){alert('Submitted !');
           }
             }
             });
@@ -79,7 +77,7 @@ function subject(){
       },
     success : function(response){
       var data=response['data'];
-      var str_head = '<th>&nbsp;&nbsp;&nbsp;user&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;leave_type&nbsp;&nbsp;&nbsp; </th><th>&nbsp;&nbsp;&nbsp;From_date&nbsp;&nbsp;&nbsp; </th><th>&nbsp;&nbsp;&nbsp;To_date&nbsp;&nbsp;&nbsp; </th><th>&nbsp;&nbsp;&nbsp;Status</th>'
+      var str_head = '<th>&nbsp;&nbsp;&nbsp;USER&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;LEAVE_TYPE&nbsp;&nbsp;&nbsp; </th><th>&nbsp;&nbsp;&nbsp;FROM_DATE&nbsp;&nbsp;&nbsp; </th><th>&nbsp;&nbsp;&nbsp;TO_DATE&nbsp;&nbsp;&nbsp; </th><th>&nbsp;&nbsp;&nbsp;STATUS</th>'
       var str ='';
       document.getElementById('recordLength').value = data.length;
       for(i=0;i<data.length;i++)
@@ -177,7 +175,7 @@ function subject(){
 <table style="width:1330px;height:600px" cellpadding="0" cellspacing="0">
 <tr>
 <td colspan="3" style="background-color:#6495ED;color:#F0FFFF;height:10px;border-align:25px;border-radius:3px;">
-<h1 style="margin-top:20px;border-color:#F0FFFF;font-family:georgia;"><div style="text-align:center;">Leave Request Status</div>
+<h1 style="margin-top:20px;border-color:#F0FFFF;font-family:georgia;line-height:0.1"><div style="text-align:center;">Leave Request Status</div>
 </h1>
 </td>
 </tr>
