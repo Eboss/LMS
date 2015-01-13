@@ -39,7 +39,7 @@
     right: 0;
     left: 0;
     bottom: 0;
-    opacity: 0.9;
+    /*opacity: 0.9;*/
     z-index: 1000;
     display: none;
 }
@@ -85,6 +85,7 @@
     right: -10px;
     border: solid 1px #fff;
 }
+
 
 #close:hover {    
     background: red;

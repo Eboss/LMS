@@ -146,9 +146,11 @@ def statusform(request):
         post, data, req_field = request.POST,{}, ['User','LeaveID','Choose','From_date','To_date','Status','Leave_type']
         for i in req_field:
             data[i] = post['leave[%s]'%i];
+        print data
 
         if data['Choose'] == 'true':
-            user_leav_obj = user_leave.objects.get(user=data['User'])
+            print 'check1'
+            user_leav_obj = user_leave.objects.get(id=data['LeaveID'])
             print user_leav_obj
             new_user_obj= new_user.objects.get(username=data['User'])
             print new_user_obj
@@ -186,7 +188,7 @@ def statusform(request):
                         
                         dump ='saved'
                         send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
-                        user_obj = user_leave.objects.get(user=data['User'])
+                        user_obj = user_leave.objects.get(id=data['LeaveID'])
                         user_obj.delete()
                         return HttpResponse(content=json.dumps(dump),content_type='Application/json')
 
@@ -219,7 +221,7 @@ def statusform(request):
                     
                     dump ='saved'
                     send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
-                    user_obj = user_leave.objects.get(user=data['User'])
+                    user_obj = user_leave.objects.get(id=data['LeaveID'])
                     print user_obj
                     user_obj.delete()
                     return HttpResponse(content=json.dumps(dump),content_type='Application/json')

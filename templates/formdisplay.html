@@ -117,14 +117,13 @@ function subject(){
 });
 function save(){
   var checkedValue = $('#Choose:checked').is(':checked');
-
   // var checkedValue = $('#Choose').is(':checked');
   // var checkedValue = document.querySelector('#Choose:checked').value;
   console.log('save')
   console.log(checkedValue)
 	var recCount = document.getElementById('recordLength').value;
 	var leaves = new Array(recCount -1);
-	for(i = 0; i < recCount; i++)
+	for(i = 0; recCount[i]; ++i)
 	{
     // i = 0;
 		var leave = {
@@ -151,9 +150,11 @@ function save(){
         csrfmiddlewaretoken: '{{csrf_token}}'
         },
       success: function (response) {
-        console.log(response)
+        // console.log(response)
           if(response=='saved') {
-            alert('Status Saved...')
+            alert('Leave Approved')
+            location.reload();
+
           }
           else if (response=='nothing') {
             alert('Nothing to Save!')
@@ -165,13 +166,13 @@ function save(){
           }
       });
 
-		leaves[i] = leave,
-    console.log('gg')
-		console.log(leave);
+		leaves[i] = leave
+  //   console.log('gg')
+		// console.log(leave);
 
 	};
-
 }
+
 
 function adduser(){
 
@@ -202,21 +203,21 @@ function adduser(){
          csrfmiddlewaretoken: '{{csrf_token}}'
       },
     success: function (response) {
-        alert('a')
-        console.log(response);
+        // alert('a')
+        // console.log(response);
         if (response=="saved"){
           // window.location.href='/signup/';
-          alert('you successfully registered');
+          alert('Successfully Registered');
         }
         else if(response=="registered"){
-          alert('username already exist!');
+          alert('Username already exists!');
         }
       }
     });
 }
-$('#save').click(function() {
-    location.reload(true);
-});
+// $('#save').click(function() {
+    
+// });
 
 </script>
 
