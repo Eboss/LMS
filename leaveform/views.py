@@ -146,30 +146,22 @@ def statusform(request):
         post, data, req_field = request.POST,{}, ['User','LeaveID','Choose','From_date','To_date','Status','Leave_type']
         for i in req_field:
             data[i] = post['leave[%s]'%i];
-        print data
 
         if data['Choose'] == 'true':
-            print 'check1'
             user_leav_obj = user_leave.objects.get(id=data['LeaveID'])
-            print user_leav_obj
             new_user_obj= new_user.objects.get(username=data['User'])
-            print new_user_obj
             mail = new_user_obj.mail            
             da= user_leav_obj.WDay_apply
-            print da
             al=new_user_obj.available_leave
-            print al
             ls = Leave_status.objects.filter(user=data['User'])
-            print ls
-            # if ls:
-            #     ls = ls[0]
-            #     ls.Status = data['Status']
-            #     ls.save()  
+            if ls:
+                ls = ls[0]
+                ls.Status = data['Status']
+                ls.save()  
 
-            # if ls:
+          # if ls:
             if data['Status'] == 'Approve' :
                     remaining = (int(al) - int(da))
-                    print remaining
                     status = 'Approve'
                     if remaining < 0:
                         dump = "error"
@@ -203,7 +195,7 @@ def statusform(request):
                                             leave_type = data['Leave_type'],
                                         )
                     
-                    dump ='saved'
+                    dump ='pending'
                     send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
                     return HttpResponse(content=json.dumps(dump),content_type='Application/json')
 
@@ -219,18 +211,16 @@ def statusform(request):
                                             leave_type = data['Leave_type'],
                                         )
                     
-                    dump ='saved'
+                    dump ='rejected'
                     send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
                     user_obj = user_leave.objects.get(id=data['LeaveID'])
-                    print user_obj
                     user_obj.delete()
                     return HttpResponse(content=json.dumps(dump),content_type='Application/json')
         elif data['Choose'] == 'false':
             dump = "nothing"
             return HttpResponse(content=json.dumps(dump),content_type='Application/json')
 
-        elif data['Status'] == True:
-            print 'amin'
+        # elif data['Status'] == True:
                 
     return render(request,'statusform.html')
 
@@ -253,7 +243,7 @@ def state(request):
 
 
 def send_message_to_user(user,leavetype,From_date,To_date,Timeoff,WDay_apply,Remarks):
-    subject, from_email, to = 'Leave Apply', 'testeb@equityboss.com', 'sadam@ithoughtz.com'
+    subject, from_email, to = 'Leave Apply', 'testeb@equityboss.com','sadam@ithoughtz.com'
     text_content = 'this is text'    
     html_content=render_to_string('dddetails.html',{'user':user,'leavetype':leavetype,'From_date':From_date,'To_date':To_date,'Timeoff':Timeoff,'remark':Remarks,'WDay_apply':WDay_apply,})
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])

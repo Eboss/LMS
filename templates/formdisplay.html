@@ -2,21 +2,22 @@
 <title>Formshow</title>
 <body>
     <h1 style="color:blue;background-color:blue;color:white;text-align:center;">
-        <a style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:left;text-decoration:underline;" id="signup_popup"> Add User 
+        <a style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:left;text-decoration:underline;" id="signup_popup"> Add User </a>
               <div id="popup1"></div>
               <div id="popup_modal1">
               <div id="close">X</div>
-                    <form style="border:1px solid blue;margin-left:28%;margin-right:33%;border-radius:10px;border-width:2px;background-color:gray;color:white;"><br>
-                    Username:<input type="text" id="username" style = "margin-left:3%"><br><br>
-                    Password:&nbsp;<input type="password" id="password" style = "margin-left:3%"><br><br>
-                    Gender:&nbsp;&nbsp;&nbsp;&nbsp;<select id="gender" style = "margin-left:3%;width: 175px;
+                    <form style="height:100%;border:1px solid blue;border-width:2px;background-color:gray;color:white;"><br>
+                      <!-- margin-left:28%;margin-right:33%;border-radius:10px; -->
+                    Username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="username" style = "margin-left:2%;width: 140px;"><br>
+                    Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" id="password" style = "margin-left:2%;width: 140px;"><br>
+                    Gender:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id="gender" style = "margin-left:3%;width: 140px;
                     height: 24px;">
                        <option value="male">Male</option>
-                         <option value="female">Female</option></select><br><br>
-                    DOB:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="dob" style = "margin-left:3%;width:176px"><br><br>
-                    Mail Id:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mail" style = "margin-left:3%;width:176px"><br><br>
-                    Mob:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mob" style = "margin-left:3%;width:176px"><br><br>
-                    Allocate leave:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="available_leave" style="margin-left:3%;width:176px">
+                         <option value="female">Female</option></select><br>
+                    DOB:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="dob" style = "margin-left:3%;width:140px"><br>
+                    Mail_id:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mail" style = "margin-left:3%;width:140px"><br>
+                    Mobile:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mob" style = "margin-left:3%;width:140px"><br>
+                    Allocate leave:<input type="text" id="available_leave" style="margin-left:1%;width:140px">
                     <button type="submit" onclick="adduser()"size="50px"style = "margin-top: 3px;
                     margin-left: 39%;
                     width: 101px;
@@ -24,11 +25,11 @@
                     border-radius: 18px;
                     color: blue;
                     border-color: white;
-                    font-size: 17px;">Save</button><br><br>
+                    font-size: 17px;">Save</button><br>
                     </form>
               </div>
-
-        </a>
+  
+        
             <span style="text-align:center;">User Leave Request</span>
             <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
         <a style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:right;text-decoration:underline;" href="/logout/">Logout </a>
@@ -156,11 +157,21 @@ function save(){
             location.reload();
 
           }
+          else if (response=='rejected') {
+            alert('Leave Rejected')
+            location.reload();
+          }
+          else if (response=='pending') {
+            alert('Still not Approved')
+            location.reload();
+          }
           else if (response=='nothing') {
             alert('Nothing to Save!')
+             location.reload();
           }
           else if (response=='error') {
           alert('There is no Available Leave')
+           location.reload();
         }  
           
           }
@@ -174,7 +185,7 @@ function save(){
 }
 
 
-function adduser(){
+function adduser(){ 
 
     var username=document.getElementById('username').value;
     var password = document.getElementById('password').value;
