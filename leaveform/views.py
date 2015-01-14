@@ -20,6 +20,7 @@ from email.mime.text import MIMEText
 from django.contrib.auth.models import User
 from requests import Request, Session
 from django.template.loader import render_to_string
+# from itertools import chain
 
 @login_required
 def signup(request):
@@ -146,28 +147,40 @@ def statusform(request):
         post, data, req_field = request.POST,{}, ['User','LeaveID','Choose','From_date','To_date','Status','Leave_type']
         for i in req_field:
             data[i] = post['leave[%s]'%i];
+        print '>>>>1'
 
         if data['Choose'] == 'true':
             user_leav_obj = user_leave.objects.get(id=data['LeaveID'])
+            print '>>>>2'
             new_user_obj= new_user.objects.get(username=data['User'])
-            mail = new_user_obj.mail            
+            print '>>>>3'
+            mail = new_user_obj.mail 
+            print '>>>>4'           
             da= user_leav_obj.WDay_apply
+            print '>>>>5'
             al=new_user_obj.available_leave
+            print '>>>>6'
             ls = Leave_status.objects.filter(user=data['User'])
+            print '>>>>7'
             if ls:
+                print '>>>>8'
                 ls = ls[0]
                 ls.Status = data['Status']
                 ls.save()  
 
           # if ls:
             if data['Status'] == 'Approve' :
+                    print '>>>>9'
                     remaining = (int(al) - int(da))
                     status = 'Approve'
                     if remaining < 0:
+                        print '>>>>10'
                         dump = "error"
                         return HttpResponse(content=json.dumps(dump),content_type='Application/json')
                     else:
+                        print '>>>>11'
                         new_user_obj.available_leave = remaining
+                        print '>>>>12'
                         new_user_obj.save()
                         Leave_status.objects.create(
                                                 user=data['User'],
@@ -180,8 +193,9 @@ def statusform(request):
                         
                         dump ='saved'
                         send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
-                        user_obj = user_leave.objects.get(id=data['LeaveID'])
-                        user_obj.delete()
+                        print '>>>>13'
+                        # user_obj = user_leave.objects.get(id=data['LeaveID'])
+                        # user_obj.delete()
                         return HttpResponse(content=json.dumps(dump),content_type='Application/json')
 
             elif data['Status'] == 'Pending' :
@@ -213,8 +227,8 @@ def statusform(request):
                     
                     dump ='rejected'
                     send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
-                    user_obj = user_leave.objects.get(id=data['LeaveID'])
-                    user_obj.delete()
+                    # user_obj = user_leave.objects.get(id=data['LeaveID'])
+                    # user_obj.delete()
                     return HttpResponse(content=json.dumps(dump),content_type='Application/json')
         elif data['Choose'] == 'false':
             dump = "nothing"
@@ -243,7 +257,7 @@ def state(request):
 
 
 def send_message_to_user(user,leavetype,From_date,To_date,Timeoff,WDay_apply,Remarks):
-    subject, from_email, to = 'Leave Apply', 'testeb@equityboss.com','sadam@ithoughtz.com'
+    subject, from_email, to = 'Leave Apply', 'accounts@ithoughtz.com','sheik@ithoughtz.com'
     text_content = 'this is text'    
     html_content=render_to_string('dddetails.html',{'user':user,'leavetype':leavetype,'From_date':From_date,'To_date':To_date,'Timeoff':Timeoff,'remark':Remarks,'WDay_apply':WDay_apply,})
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
@@ -262,4 +276,8 @@ def send_mail_from_approver(From_date,To_date,Status,mail):
 
 def forgotpassword(request):
     return render(request,'forgotpassword.html')
+
+def reports(request):
+    report = user_leave.objects.all()
+    
 
