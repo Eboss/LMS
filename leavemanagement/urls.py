@@ -21,5 +21,6 @@ urlpatterns = patterns('',
     url(r'^forgotpassword/',forgotpassword),    
     url(r'^statusform/',statusform),
     url(r'^state/',state),
+    url(r'^reports/',reports),
     url(r'^admin/', include(admin.site.urls)),
 )

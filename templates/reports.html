@@ -1,0 +1,63 @@
+<body bgcolor="#B5B5B5">
+<html>
+<p><h2 align="left">Report List</p></h2>
+<!-- <type id="user">
+<type id="leave_type">
+<type id="From_date">
+<type id="To_date">
+<type id="Status"> -->
+
+
+<!-- <input type="image" src="../static/submit.gif" alt="Submit" onclick="Submit();" align="right" width="48" height="48"> -->
+
+<div><br><a href="#" onclick="subject()"></a></br>
+  <table  align="center" height="300" width="600" border="3" bgcolor="white" class='familyclass'>
+    </table></div><br>
+  
+</type>
+
+<!-- <form><input type="reset" value="Reset"></form> -->
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+function subject()
+  
+  {    
+  $.ajax({
+               type: "POST",
+               url: '/reports/',
+                data: {
+                     // post:'POST',
+                     csrfmiddlewaretoken: '{{csrf_token}}',
+                      },
+    success : function(response)
+    {
+      // console.log(response);
+      var data=response['data'];
+      var str_head = '<th>USER</th><th>LEAVE_TYPE</th><th>FROM_DATE</th><th>TO_DATE</th><th>STATUS</th>'
+      var startstr = '';
+      var str = '';
+      
+            for (i=0; i<data.length; i++)
+               { 
+               var user = data[i]['user'];
+               var leave_type = data[i]['leave_type'];
+               var From_date = data[i]['From_date'];
+               var To_date = data[i]['To_date'];
+               var Status = data[i]['Status'];
+               
+               str += 
+                 '<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+user+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+leave_type+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+From_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+To_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+Status+'</td></tr>';
+       
+               }
+               console.log(str)
+               var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
+               $('.familyclass').append(html)  
+    },
+    });
+  }
+$( document ).ready(function() {
+    console.log( "ready!" );
+    subject();
+});
+</script>

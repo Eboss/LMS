@@ -135,6 +135,11 @@ def formdis(request):
         datadump = user_leave.objects.all()
         for i in datadump:
            data.append({'user':i.user,'leave_type':i.leave_type,'From_date':i.From_date,'To_date':i.To_date,'Timeoff':i.Timeoff,'WDay_apply':i.WDay_apply,'Remarks':i.Remarks, 'id':i.id, 'available_leave': new_user.objects.get(username = i.user).available_leave})
+           # Status': Leave_status.objects.get(user = i.user).Status
+        # status = Leave_status.objects.all()
+        # # print '>>>>>'status
+        # for j in status:
+        #     data({'Status': Leave_status.objects.filter(user = j.Status).Status})   
         return HttpResponse(content=json.dumps({'data': data}),content_type='Application/json')
     return render(request,'formdisplay.html')
 
@@ -147,40 +152,28 @@ def statusform(request):
         post, data, req_field = request.POST,{}, ['User','LeaveID','Choose','From_date','To_date','Status','Leave_type']
         for i in req_field:
             data[i] = post['leave[%s]'%i];
-        print '>>>>1'
 
         if data['Choose'] == 'true':
             user_leav_obj = user_leave.objects.get(id=data['LeaveID'])
-            print '>>>>2'
             new_user_obj= new_user.objects.get(username=data['User'])
-            print '>>>>3'
             mail = new_user_obj.mail 
-            print '>>>>4'           
             da= user_leav_obj.WDay_apply
-            print '>>>>5'
             al=new_user_obj.available_leave
-            print '>>>>6'
             ls = Leave_status.objects.filter(user=data['User'])
-            print '>>>>7'
             if ls:
-                print '>>>>8'
-                ls = ls[0]
-                ls.Status = data['Status']
-                ls.save()  
+                        ls = ls[0]
+                        ls.Status = data['Status']
+                        ls.save()  
 
           # if ls:
             if data['Status'] == 'Approve' :
-                    print '>>>>9'
                     remaining = (int(al) - int(da))
-                    status = 'Approve'
+                    status = 'Approved'
                     if remaining < 0:
-                        print '>>>>10'
                         dump = "error"
                         return HttpResponse(content=json.dumps(dump),content_type='Application/json')
                     else:
-                        print '>>>>11'
                         new_user_obj.available_leave = remaining
-                        print '>>>>12'
                         new_user_obj.save()
                         Leave_status.objects.create(
                                                 user=data['User'],
@@ -193,9 +186,9 @@ def statusform(request):
                         
                         dump ='saved'
                         send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
-                        print '>>>>13'
-                        # user_obj = user_leave.objects.get(id=data['LeaveID'])
-                        # user_obj.delete()
+                
+                        user_obj = user_leave.objects.get(id=data['LeaveID'])
+                        user_obj.delete()
                         return HttpResponse(content=json.dumps(dump),content_type='Application/json')
 
             elif data['Status'] == 'Pending' :
@@ -214,8 +207,8 @@ def statusform(request):
                     return HttpResponse(content=json.dumps(dump),content_type='Application/json')
 
 
-            elif data['Status'] == 'Reject' :
-                    status = 'Reject'                
+            elif data['Status'] == 'Rejected' :
+                    status = 'Rejected'                
                     Leave_status.objects.create(
                                             user=data['User'],
                                             LeaveID=data['LeaveID'],
@@ -227,8 +220,8 @@ def statusform(request):
                     
                     dump ='rejected'
                     send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
-                    # user_obj = user_leave.objects.get(id=data['LeaveID'])
-                    # user_obj.delete()
+                    user_obj = user_leave.objects.get(id=data['LeaveID'])
+                    user_obj.delete()
                     return HttpResponse(content=json.dumps(dump),content_type='Application/json')
         elif data['Choose'] == 'false':
             dump = "nothing"
@@ -278,6 +271,10 @@ def forgotpassword(request):
     return render(request,'forgotpassword.html')
 
 def reports(request):
-    report = user_leave.objects.all()
-    
-
+  if request.method == 'POST':
+    data = []
+    report = Leave_status.objects.all()
+    for i in report:
+        data.append({'user':i.user,'leave_type':i.leave_type,'From_date':i.From_date,'To_date':i.To_date,'Status':i.Status})
+    return HttpResponse(content=json.dumps({'data': data}),content_type='Application/json')
+  return render(request,'reports.html')
