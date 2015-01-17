@@ -37,7 +37,8 @@ class user_leave(models.Model):
 
 
 class new_user(models.Model):
-     available_leave=models.CharField(max_length=200)
+     available_leave = models.CharField(max_length=200)
+     sick_leave = models.CharField(max_length=200)
      auth = models.OneToOneField(User)
      username=models.CharField(max_length=500)
      password = models.CharField(max_length=500)

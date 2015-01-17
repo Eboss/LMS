@@ -29,7 +29,7 @@ def signup(request):
 @login_required
 def createaccount(request):
     if request.method == 'POST':
-        post, data, req_field = request.POST, {}, ['username' ,'password','gender','dob','mail','mob','available_leave']
+        post, data, req_field = request.POST, {}, ['username' ,'password','gender','dob','mail','mob','available_leave','sick_leave']
         for i in req_field:
             data[i] = post['all[%s]'%i]   
         if new_user.objects.filter(username = data['username']):
@@ -38,6 +38,7 @@ def createaccount(request):
             auth = User.objects.create_user(data['username'],'',data['password'])
             new_user.objects.create(
                                         available_leave=data['available_leave'],
+                                        sick_leave=data['sick_leave'],
                                         username = data['username'],
                                         password=data['password'],
                                         gender=data['gender'],

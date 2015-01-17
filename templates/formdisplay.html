@@ -14,10 +14,11 @@
                     height: 24px;">
                           <option value="male">Male</option>
                           <option value="female">Female</option></select><br>
-                    DOB:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="dob" style = "margin-left:3%;width:140px"><br>
+                    DOB:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="dob" style = "margin-left:3%;width:140px"><br>
                     Mail_id:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mail" style = "margin-left:3%;width:140px"><br>
                     Mobile:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="mob" style = "margin-left:3%;width:140px"><br>
-                    Allocate leave:<input type="text" id="available_leave" style="margin-left:1%;width:140px">
+                    Earn leave:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="available_leave" style="margin-left:1%;width:140px"><br>
+                    Medical leave:<input type="text" id="sick_leave" style="margin-left:1%;width:140px"><br>
                     <button type="submit" onclick="adduser()" size="50px" style = "margin-top: 3px;margin-left: 39%;width: 101px;height: 31px;border-radius: 18px;color: blue;border-color: white;font-size: 17px;">Save</button><br>
                     </form>
                  </div>
@@ -197,6 +198,7 @@ function adduser(){
     var mail=document.getElementById('mail').value;
     var mob=document.getElementById('mob').value;
     var available_leave = document.getElementById('available_leave').value;  
+    var sick_leave = document.getElementById('sick_leave').value;
     var all={
       username:username,
       password:password,
@@ -205,7 +207,7 @@ function adduser(){
       mail:mail,
       mob:mob,
       available_leave:available_leave,
-       
+      sick_leave:sick_leave,
     };    
 
 
