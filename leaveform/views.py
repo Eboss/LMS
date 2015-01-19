@@ -89,7 +89,8 @@ def home(request):
     loguser = request.user
     datadump=new_user.objects.get(auth = loguser)
     remaining_leave = datadump.available_leave
-    return render(request, 'home.html',{'data':remaining_leave,'user':loguser})
+    sick_leave = datadump.sick_leave
+    return render(request, 'home.html',{'data':remaining_leave,'user':loguser,'data1':sick_leave})
 
 
 def logout_view(request):
@@ -135,7 +136,7 @@ def formdis(request):
             data1.append({'user':j.user,'LeaveID':j.LeaveID,'From_date':j.From_date,'To_date':j.To_date,'Status':j.Status,'leave_type':j.leave_type})
         datadump = user_leave.objects.all()
         for i in datadump:
-           data.append({'user':i.user,'leave_type':i.leave_type,'From_date':i.From_date,'To_date':i.To_date,'Timeoff':i.Timeoff,'WDay_apply':i.WDay_apply,'Remarks':i.Remarks, 'id':i.id, 'available_leave': new_user.objects.get(username = i.user).available_leave})
+           data.append({'user':i.user,'leave_type':i.leave_type,'From_date':i.From_date,'To_date':i.To_date,'Timeoff':i.Timeoff,'WDay_apply':i.WDay_apply,'Remarks':i.Remarks, 'id':i.id, 'available_leave': new_user.objects.get(username = i.user).available_leave, 'sick_leave': new_user.objects.get(username = i.user).sick_leave})       
            # Status': Leave_status.objects.get(user = i.user).Status
         # status = Leave_status.objects.all()
         # # print '>>>>>'status
@@ -160,6 +161,7 @@ def statusform(request):
             mail = new_user_obj.mail 
             da= user_leav_obj.WDay_apply
             al=new_user_obj.available_leave
+            sl=new_user_obj.sick_leave
             ls = Leave_status.objects.filter(user=data['User'])
             if ls:
                         ls = ls[0]
@@ -168,12 +170,16 @@ def statusform(request):
 
           # if ls:
             if data['Status'] == 'Approve' :
-                    remaining = (int(al) - int(da))
-                    status = 'Approved'
-                    if remaining < 0:
+                     remaining1 = (int(sl) - int(da))
+                     status = 'Approved'
+                     remaining = (int(al) - int(da))
+                     status = 'Approved'
+                     if remaining1 < 0 or remaining < 0:
                         dump = "error"
                         return HttpResponse(content=json.dumps(dump),content_type='Application/json')
-                    else:
+                     else:
+                        new_user_obj.sick_leave = remaining1
+                        new_user_obj.save()
                         new_user_obj.available_leave = remaining
                         new_user_obj.save()
                         Leave_status.objects.create(
@@ -187,7 +193,6 @@ def statusform(request):
                         
                         dump ='saved'
                         send_mail_from_approver(data['From_date'],data['To_date'],status,mail);
-                
                         user_obj = user_leave.objects.get(id=data['LeaveID'])
                         user_obj.delete()
                         return HttpResponse(content=json.dumps(dump),content_type='Application/json')
@@ -208,7 +213,7 @@ def statusform(request):
                     return HttpResponse(content=json.dumps(dump),content_type='Application/json')
 
 
-            elif data['Status'] == 'Rejected' :
+            elif data['Status'] == 'Reject' :
                     status = 'Rejected'                
                     Leave_status.objects.create(
                                             user=data['User'],
@@ -251,7 +256,7 @@ def state(request):
 
 
 def send_message_to_user(user,leavetype,From_date,To_date,Timeoff,WDay_apply,Remarks):
-    subject, from_email, to = 'Leave Apply', 'accounts@ithoughtz.com','sheik@ithoughtz.com'
+    subject, from_email, to = 'Leave Apply', 'testeb@equityboss.com','sheik@ithoughtz.com'
     text_content = 'this is text'    
     html_content=render_to_string('dddetails.html',{'user':user,'leavetype':leavetype,'From_date':From_date,'To_date':To_date,'Timeoff':Timeoff,'remark':Remarks,'WDay_apply':WDay_apply,})
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])

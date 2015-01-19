@@ -130,7 +130,8 @@ function subject(){
 <table style="width:1700px;height:600px" cellpadding="0" cellspacing="0">
 <tr>
 <td colspan="3" style="background-color:#6495ED;color:#F0FFFF;height:10px;border-align:25px;border-radius:3px;">
-<h1 style="margin-top:20px;border-color:#F0FFFF;font-family:georgia;"><div style="text-align:center;">Available Leave : {{data}}</div>
+<h1 style="margin-top:20px;border-color:#F0FFFF;font-family:georgia;"><div style="text-align:center;">Earn Leave : {{data}}</div>
+<h1 style="margin-top:20px;border-color:#F0FFFF;font-family:georgia;"><div style="text-align:center;">Medical Leave : {{data1}}</div>
 </h1>
 </td>
 </tr>
@@ -145,23 +146,23 @@ function subject(){
 </div>
 
 <div class="tab-pane" id="tab_b">
-    <table style="width:1330px;height:600px" cellpadding="0" cellspacing="0">
+    <table style="width:1600px;height:600px" cellpadding="0" cellspacing="0">
         <tr>
-            <td style="background-color:#6495ED;vertical-align:top;height:250px;">
+            <td style="background-color:#6495ED;vertical-align:top;height:650px;">
                 <div class="border" onload="change()";>
                     <center style="background-color:blue;font-size:25px;font-family:verdana;">LEAVE FORM</center><br>
                     <form id="Form">
                         Leave Type:<select id="leavetype" style="margin-left:110px;width:240px;">
-                            <option value="Annual Leave">Annual Leave</option>
-                            <option value="Sick Leave">Sick Leave</option></select><br><br>
+                            <option value="Earn Leave">Earn Leave</option>
+                            <option value="Medical Leave">Medical Leave</option></select><br><br>
                         From Date:<input type="date" id="From_date" onchange="time_diff()"><br><br>
                         To Date: <input type="date" id="To_date"style="margin-left:138px;" onchange="time_diff()"><br><br>
                         Time Off:<select id="Timeoff" style="margin-left:20%;width:241px;"><option value="Full Day Off">Full Day Off</option>
                             <option value="Partial Day Off">Partial Day Off</option></select><br><br>
                         Working Days Applied:<input type="text" id="WDapply"  style="margin-left:16px;width:243px"><br><br>
-                        Reason:<textarea rows="2" id="remark" cols="32" style="margin-left:133px;"></textarea><br><br>
+                        Reason:&nbsp;&nbsp;&nbsp;<textarea rows="2" id="remark" cols="32" style="margin-left:133px;height:80px;width:243px;"></textarea><br><br>
                         
-                        &nbsp;<button type="submit" id="save" onclick="Save()"style = "margin-left:200px">Save</button>
+                        &nbsp;<button type="submit" id="save" onclick="Save()"style = "margin-left:200px">Apply</button>
                         <button type="submit" id="reset"value="reset"onClick="reset()">Reset</button>
                         <span><img src="{{ STATIC_URL }}images/form.png"style = "width: 125px;margin-bottom:-150px;margin-left:75%;margin-top: -35%;"></span><br>   
                     </form>
@@ -172,7 +173,7 @@ function subject(){
 </div>
 
 <div class="tab-pane" id="tab_c">
-<table style="width:1330px;height:600px" cellpadding="0" cellspacing="0">
+<table style="width:1600px;height:600px" cellpadding="0" cellspacing="0">
 <tr>
 <td colspan="3" style="background-color:#6495ED;color:#F0FFFF;height:10px;border-align:25px;border-radius:3px;">
 <h1 style="margin-top:20px;border-color:#F0FFFF;font-family:georgia;line-height:0.1"><div style="text-align:center;">Leave Request Status</div>
@@ -182,7 +183,7 @@ function subject(){
 
 <tr>
     <td style="background-color:#6495ED;width:50%;vertical-align:top;border-radius:3px;"></td>
-    <table id="recordLength" border="3" bgcolor="white" class='familyclass'style="border-radius:10px;margin-top: -35%;width: 500px;height: 75px;margin-left: 30%;float:top;text-align:center;background-color:white;border-color:blue">
+    <table id="recordLength" border="3" bgcolor="white" class='familyclass'style="border-radius:10px;margin-top: -35%;width: 600px;height: 175px;margin-left: 30%;float:top;text-align:center;background-color:white;border-color:blue">
     </table>
     <td style="background-color:#6495ED;width:50%;vertical-align:top;border-radius:3px;"></td>   
 </tr>

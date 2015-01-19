@@ -2,7 +2,7 @@
   <title>AdminForm</title>
     <body>
       <h1 style="color:#303030;background-color:#595959;color:white;text-align:center;">
-        <a style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:left;" id="signup_popup"> Add User </a>
+        <a style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:left;text-decoration:underline;" id="signup_popup"> Add User </a>
               <div id="popup1"></div>
                 <div id="popup_modal1">
                   <div id="close">X</div>
@@ -38,7 +38,7 @@
             <td style="background-color:#B5B5B5;width:50%;vertical-align:top;border-radius:3px;"></td>
             <td style="background-color:#B5B5B5;width:500px;vertical-align:top;height:250px;">
 
-                <table width="1150px;" id="userleave" border="3" bgcolor="white" class='familyclass'style="border-radius:10px;text-align:center;margin-top:15%;background-color:white;border-color:#303030">
+                <table width="1450px;" id="userleave" border="3" bgcolor="white" class='familyclass'style="border-radius:10px;text-align:center;margin-top:15%;background-color:white;border-color:#303030">
                 </table><br>
                 <button type="submit" onclick="save()"style="margin-left:520px;font-size: 15px;font-family: verdana;border-color:#303030;cursor:pointer;">SAVE</button>
             </td>
@@ -84,7 +84,7 @@ function subject(){
       },
     success : function(response){
       var data=response['data'];
-      var str_head = '<th>&nbsp;&nbsp;&nbsp;USER</th><th>&nbsp;&nbsp;&nbsp&nbsp;&nbsp;LEAVE_TYPE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM_DATE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO_DATE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TIMEOFF</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAYS_APPLIED</th><th> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REASON</th><th>&nbsp;&nbsp;&nbsp;&nbsp;AVAILABLE_LEAVE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS</th><th>&nbsp;&nbsp;&nbsp;&nbsp;SELECT</th>'
+      var str_head = '<th>&nbsp;&nbsp;&nbsp;USER</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;LEAVE_TYPE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM_DATE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO_DATE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TIMEOFF</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAYS_APPLIED</th><th> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REASON</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EARN LEAVE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEDICAL LEAVE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT</th>'
       var str ='';
       document.getElementById('recordLength').value = data.length;
       
@@ -92,6 +92,7 @@ function subject(){
   		{
           
           var available_leave = data[i]['available_leave'];
+          var sick_leave = data[i]['sick_leave'];
       		var user=data[i]['user'];
       		var leave_type=data[i]['leave_type'];
       		var From_date=data[i]['From_date'];
@@ -101,7 +102,7 @@ function subject(){
           var Remarks=data[i]['Remarks'];
           var Id=data[i]['id'];
             
-            str += '<span><tr><td>&nbsp;&nbsp;&nbsp;'+user+'</td><td>&nbsp;&nbsp;&nbsp;'+leave_type+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+From_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;'+To_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;'+Timeoff+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+WDay_apply+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+Remarks+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+available_leave+'</td><td>&nbsp;<select id="status'+i+'"><option value="Approve">Approve</option><option value="Pending">Pending</option><option value="Reject">Reject</option></select></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" class="checked_item" id="checked_item'+i+'" value="savedata"></td>'+'<input type="hidden" id="id'+i+'" value="'+Id+'">'+'<input type="hidden" id="user'+i+'" value="'+user+'">'+'<input type="hidden" id="leave_type'+i+'" value="'+leave_type+'">'+'<input type="hidden" id="From_date'+i+'" value="'+From_date+'">'+'<input type="hidden" id="To_date'+i+'" value="'+To_date+'">'+'<input type="hidden" id="Timeoff'+i+'" value="'+Timeoff+'">'+'<input type="hidden" id="WDay_apply'+i+'" value="'+WDay_apply+'">'+'<input type="hidden" id="Remarks'+i+'" value="'+Remarks+'">'+'<input type="hidden" id="available_leave'+i+'" value="'+available_leave+'"></tr></span>';
+            str += '<span><tr><td>&nbsp;&nbsp;&nbsp;'+user+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+leave_type+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+From_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+To_date+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+Timeoff+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+WDay_apply+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+Remarks+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+available_leave+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+sick_leave+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id="status'+i+'"><option value="Approve">Approve</option><option value="Pending">Pending</option><option value="Reject">Reject</option></select></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" class="checked_item" id="checked_item'+i+'" value="savedata"></td>'+'<input type="hidden" id="id'+i+'" value="'+Id+'">'+'<input type="hidden" id="user'+i+'" value="'+user+'">'+'<input type="hidden" id="leave_type'+i+'" value="'+leave_type+'">'+'<input type="hidden" id="From_date'+i+'" value="'+From_date+'">'+'<input type="hidden" id="To_date'+i+'" value="'+To_date+'">'+'<input type="hidden" id="Timeoff'+i+'" value="'+Timeoff+'">'+'<input type="hidden" id="WDay_apply'+i+'" value="'+WDay_apply+'">'+'<input type="hidden" id="Remarks'+i+'" value="'+Remarks+'">'+'<input type="hidden" id="available_leave'+i+'" value="'+available_leave+'"></tr></span>'+'<input type="hidden" id="sick_leave'+i+'" value="'+sick_leave+'"></tr></span>';
             
         }
             var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
