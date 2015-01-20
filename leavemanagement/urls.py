@@ -22,5 +22,6 @@ urlpatterns = patterns('',
     url(r'^statusform/',statusform),
     url(r'^state/',state),
     url(r'^reports/',reports),
+    url(r'^list_of_employee/',list_of_employee),
     url(r'^admin/', include(admin.site.urls)),
 )

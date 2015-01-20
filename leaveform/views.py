@@ -284,3 +284,18 @@ def reports(request):
         data.append({'user':i.user,'leave_type':i.leave_type,'From_date':i.From_date,'To_date':i.To_date,'Status':i.Status})
     return HttpResponse(content=json.dumps({'data': data}),content_type='Application/json')
   return render(request,'reports.html')
+
+
+def list_of_employee(request):
+    if request.method == 'POST':
+        print '>>>>'
+        data= []
+        employee = new_user.objects.all()
+        # print '>>>>',employee
+        for i in employee:
+            data.append({'available_leave':i.available_leave, 'sick_leave':i.sick_leave,'username':i.username, 'gender':i.gender})
+        return HttpResponse(content=json.dumps({'data':data}), content_type='Application/json')
+    return render(request, 'list_of_employee.html')
+
+
+

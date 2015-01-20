@@ -1,0 +1,63 @@
+<body bgcolor="#B5B5B5">
+<html>
+<p><h2 align="left"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Employees Available leave</p></h2>
+<!-- <type id="user">
+<type id="leave_type">
+<type id="From_date">
+<type id="To_date">
+<type id="Status"> -->
+
+
+<!-- <input type="image" src="../static/submit.gif" alt="Submit" onclick="Submit();" align="right" width="48" height="48"> -->
+<a href="/formdisplay/" style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:left;" id="signup_popup">HOME</a>
+<div><br><a href="#" onclick="subject()"></a></br>
+  <table  align="center" height="300" width="400" border="3" bgcolor="white" class='familyclass'>
+    </table></div><br>
+  
+</type>
+
+<!-- <form><input type="reset" value="Reset"></form> -->
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+function employee(){
+    $.ajax({
+      type:'POST',
+      url:'/list_of_employee/',
+      data:{
+           // all:'all',
+         csrfmiddlewaretoken: '{{csrf_token}}'
+      },
+
+      success : function(response){
+        console.log(data)
+      var data=response['data'];
+      var str_head = '<th>Employee</th><th>&nbsp;&nbsp;&nbsp;Available EL</th><th>&nbsp;&nbsp;&nbsp;Available ML</th>'
+      var startstr = '';
+      var str ='';
+
+      // document.getElementById('recordLength').value = data.length;
+      
+      for(i=0;i<data.length;i++)
+      {
+          
+ 
+          var sick_leave = data[i]['sick_leave'];
+          var username=data[i]['username'];
+          var gender=data[i]['gender'];
+          var available_leave=data[i]['available_leave'];
+            
+       str += '<tr><td>'+username+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+available_leave+'</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+sick_leave+'</td></tr>';
+            
+        }
+            var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
+            $('.familyclass').append(html)
+            
+    },
+    });
+  }
+$( document ).ready(function() {
+    console.log( "ready!" );
+    employee();
+});
+</script>

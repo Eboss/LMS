@@ -2,13 +2,13 @@
   <title>AdminForm</title>
     <body>
       <h1 style="color:#303030;background-color:#595959;color:white;text-align:center;">
-        <a style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:left;text-decoration:underline;" id="signup_popup"> Add User </a>
+        <a style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:left;text-decoration:underline;" id="signup_popup"> NEW EMPLOYEE </a>
               <div id="popup1"></div>
                 <div id="popup_modal1">
                   <div id="close">X</div>
                     <form style="height:100%;border:1px solid black;border-width:2px;background-color:gray;color:white;"><br>
                       <!-- margin-left:28%;margin-right:33%;border-radius:10px; -->
-                    Username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="username" style = "margin-left:2%;width: 140px;"><br>
+                    Employee:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="username" style = "margin-left:2%;width: 140px;"><br>
                     Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" id="password" style = "margin-left:2%;width: 140px;"><br>
                     Gender:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id="gender" style = "margin-left:3%;width: 140px;
                     height: 24px;">
@@ -24,9 +24,13 @@
                  </div>
   
             <!-- <a > -- Display </a></li> -->
-            <li class=""><a href="/reports/" style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:left;" id="signup_popup">&nbsp;&nbsp;&nbsp;Reports</a>
 
-            <span style="text-align:center;">ADMIN TABLE FOR USER APPROVAL</span>
+            <p>
+            <a href="/list_of_employee/" style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:left;">&nbsp;&nbsp;&nbsp;EMPLOYEE LIST</a>
+</p>
+            <a href="/reports/" style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:left;">&nbsp;&nbsp;&nbsp;REPORTS</a>
+
+            <span style="">Employee   Leave   Requesting Form</span>
 
         <a style="font-size:15px;color: white;font-family: verdana;font-weight: bold;float:right;" href="/logout/">Logout </a>
     </h1>
@@ -46,6 +50,8 @@
         </tr>
         
     </table> 
+
+
 
  
 <!-- <table id="userleave" border="3" bgcolor="white" class='familyclass'style="border-radius:10px;float:top;text-align:center;margin-top:-20px;background-color:white;border-color:blue">
@@ -84,7 +90,7 @@ function subject(){
       },
     success : function(response){
       var data=response['data'];
-      var str_head = '<th>&nbsp;&nbsp;&nbsp;USER</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;LEAVE_TYPE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM_DATE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO_DATE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TIMEOFF</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAYS_APPLIED</th><th> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REASON</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EARN LEAVE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEDICAL LEAVE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT</th>'
+      var str_head = '<th>&nbsp;&nbsp;&nbsp;EMPLOYEE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;LEAVE_TYPE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM_DATE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO_DATE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TIMEOFF</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAYS_APPLIED</th><th> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REASON</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EARN LEAVE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEDICAL LEAVE</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT</th>'
       var str ='';
       document.getElementById('recordLength').value = data.length;
       
@@ -111,9 +117,15 @@ function subject(){
       },
     });
   }
+
+
+
+
+
   $( document ).ready(function() {
     console.log( "ready!" );
     subject();
+
 });
 
 
@@ -235,6 +247,8 @@ function adduser(){
 // $('#save').click(function() {
     
 // });
+
+
 
 </script>
 
